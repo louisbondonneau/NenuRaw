@@ -32,10 +32,10 @@ import argparse
 
 import dynspec_utils
 import wav_utils
- 
+
 
 parser = argparse.ArgumentParser(description="This code will plot GUPPI raw files")
-#parser.add_argument('-gui', dest='gui', action='store_true', default=False,
+# parser.add_argument('-gui', dest='gui', action='store_true', default=False,
 #                    help="Open the matplotlib graphical user interface")
 parser.add_argument('INPUT_ARCHIVE', nargs='+', help="Path to the Archives")
 
@@ -46,61 +46,53 @@ if __name__ == "__main__":
     files = args.INPUT_ARCHIVE
 
     my_spectra = dynspec_utils.Dynspec(files,
-                     verbose=True,
-                     freq_start=99,
-                     freq_end=0,
-                     #start=10, # ~/data/test/RAW/new/B0809+74_D20200409T1900_58948_500098_0028_BEAM2_rebuild.raw
-                     #end=10.5 # ~/data/test/RAW/new/B0809+74_D20200409T1900_58948_500098_0028_BEAM2_rebuild.raw
-                     #start=10.1,
-                     #end=10.35 
-                     #start=4.6, #/databf2/nenufar-pulsar/TMP/B1919+21_D20200T1145_58928_000454_0057_BEAM0.0000.raw
-                     #end=4.8 #/databf2/nenufar-pulsar/TMP/B1919+21_D20200T1145_58928_000454_0057_BEAM0.0000.raw
-                     start=4.7, #/databf2/nenufar-pulsar/TMP/B1919+21_D20200T1145_58928_000454_0057_BEAM0.0000.raw
-                     end=4.75 #/databf2/nenufar-pulsar/TMP/B1919+21_D20200T1145_58928_000454_0057_BEAM0.0000.raw
-                     #block_start=0,
-                     #block_end=1
-                     )
+                                       verbose=True,
+                                       freq_start=99,
+                                       freq_end=0,
+                                       # start=10,
+                                       # end=10.5,
+                                       # start=10.1,
+                                       # end=10.35
+                                       # start=4.6,
+                                       # end=4.8,
+                                       start=4.7,
+                                       end=4.75,
+                                       # block_start=0,
+                                       # block_end=1,
+                                       )
 
     my_wav_obj = wav_utils.Wav()
 
-    #my_spectra.dm = 12.44
-    #my_spectra.new_fourier_methode(my_wav_obj.wav_cleaning_freq)
+    # my_spectra.dm = 12.44
+    # my_spectra.new_fourier_methode(my_wav_obj.wav_cleaning_freq)
     my_spectra.new_fourier_methode(my_wav_obj.coherent_dedisp)
 
+    my_spectra.fourier_computation(fftlen=1, ds_ms=0.2, df=1, pol="I")  # I, Q, U, L, V, XX, YY
+    # my_spectra.plot_spectra()
 
-    my_spectra.fourier_computation(fftlen=1, ds_ms=0.2, df=1, pol="I") #I, Q, U, L, V, XX, YY
-    #my_spectra.plot_spectra()
-
-    #my_spectra.clean(threshold=5)
-    #my_spectra.clean(threshold=10)
-    #my_spectra.plot_spectra()
-    #my_spectra.plot_dynspec()
-    #my_spectra.plot_spectra()
-    #my_spectra.clean(threshold=5)
-    #my_spectra.plot_spectra()
-    #my_spectra.plot_dynspec()
+    # my_spectra.clean(threshold=5)
+    # my_spectra.clean(threshold=10)
+    # my_spectra.plot_spectra()
+    # my_spectra.plot_dynspec()
+    # my_spectra.plot_spectra()
+    # my_spectra.clean(threshold=5)
+    # my_spectra.plot_spectra()
+    # my_spectra.plot_dynspec()
 
     my_spectra.clean(threshold=10)
     my_spectra.rm_baseline()
-    #my_spectra.plot_dynspec()
+    # my_spectra.plot_dynspec()
     my_spectra.clean(threshold=4)
     my_spectra.rm_baseline()
     my_spectra.plot_dynspec()
 
-    #my_spectra.rm_pfb()
+    # my_spectra.rm_pfb()
     #my_spectra.clean(threshold = 20)
-    #for i in range(3):
+    # for i in range(3):
     #   my_spectra.rm_dm0()
     #   my_spectra.rm_baseline()
     #   my_spectra.clean(threshold = 10)
 
-    #my_spectra.dedisperse()
+    # my_spectra.dedisperse()
 
-    #my_spectra.plot_dynspec()
-
-
-
-
-
-
-
+    # my_spectra.plot_dynspec()
