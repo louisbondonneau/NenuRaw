@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+
+from NenuRaw import dynspec_utils
+
+if __name__ == "__main__":
+    # wavfile (GUPPI or RAWTF format)
+    files = ['/databf2/nenufar-pulsar/ES03/2020/05/B0834+06_D20200510T1700_58979_250507_0069_BEAM1.0000.raw']
+
+    # initialisation of the Dynspec object containing the methodes
+    my_spectra = dynspec_utils.Dynspec(files)
+
+    my_spectra.print_info()
