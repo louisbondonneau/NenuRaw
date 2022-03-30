@@ -72,11 +72,12 @@ class Dynspec(Raw):
         self.pfb = np.median(np.reshape(spectrum, (self.nchan_file, self.chan_factor)), axis=0)
         self.pfb /= np.median(self.pfb)
         # PFB = np.median(PFB, axis=0)
-        median = np.median(self.dynspec)
+        # median = np.median(self.dynspec)
         for ichan in range(self.nchan_file):
             for ifft in range(self.nschan):
+                median = np.median(self.dynspec[ichan * self.chan_factor:(ichan + 1) * self.chan_factor, ifft])
                 self.dynspec[ichan * self.chan_factor:(ichan + 1) * self.chan_factor, ifft] = self.dynspec[ichan * self.chan_factor:(
-                    ichan + 1) * self.chan_factor, ifft] - (self.pfb - 1) * np.median(self.dynspec[ichan * self.chan_factor:(ichan + 1) * self.chan_factor, ifft])
+                    ichan + 1) * self.chan_factor, ifft] - (self.pfb - 1) * median
         # self.dynspec = np.reshape(self.dynspec, (self.nchan_file*self.chan_factor, int((np.sum(self.nof_blocks)-self.block_start)*self.nfft/self.ds)))
 
     def plot_dynspec(self):

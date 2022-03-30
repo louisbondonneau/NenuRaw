@@ -1,7 +1,7 @@
 
 import numpy as np
 
-import datetime
+from datetime import datetime
 from astropy.time import Time
 
 

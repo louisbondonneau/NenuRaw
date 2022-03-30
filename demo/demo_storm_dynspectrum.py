@@ -23,6 +23,7 @@ if __name__ == "__main__":
     # and conversion to total intensity with time integration of 50 ms
     my_spectra.fourier_computation(fftlen=1, ds_ms=10, pol="I")  # I, Q, U, L, V, XX, YY
 
+
     my_spectra.clean(threshold=10)  # first clean with threshold=10
     my_spectra.rm_baseline()  # baseline flatening
     my_spectra.clean(threshold=4)  # second and refined cleaning

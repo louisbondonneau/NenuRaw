@@ -14,10 +14,13 @@ from NenuRaw.luppi_structure import LUPPI
 from NenuRaw.rawtf_structure import Rawtf
 from NenuRaw.waveolaf_structure import WaveOlaf
 
+# from multiprocessing import Pool, TimeoutError
+import threading
+
 from NenuRaw.wav_utils import Wav
 
-#from pympler import summary
-#from pympler import muppy
+# from pympler import summary
+# from pympler import muppy
 import time
 
 
@@ -273,13 +276,29 @@ class Raw:
         print("  fftlen     is: %s int %.3f ms" % (self.fftlen, self.fftlen * self.tbin * 1e3))
         # print(self.nsblk*5.12e-6/192/4)
 
-        # for block_num in range(int(np.floor(self.block_start/self.subblocking)), int(np.ceil(self.nof_blocks[file_num]/self.subblocking))):
+        # ------ without mp ------
         for block_num in range(self.block_start, self.block_end + 1):
             data_plot = self.fourier_computation_block(block_num, file_num=file_num, pol=pol)
             if (block_num == int(self.block_start)):
                 self.dynspec = data_plot
             else:
                 self.dynspec = np.append(self.dynspec, data_plot, axis=2)
+
+        # ------ try mp ------
+        # pool = Pool(processes=int(8))
+        # mp_processe_all = []
+        # for block_id in range(self.block_start, self.block_end + 1):
+        #     mp_processe = pool.apply_async(self.fourier_computation_block,
+        #                                    (block_id, file_num, pol))
+        #     mp_processe_all.append(mp_processe)
+        # for i in mp_processe_all:
+        #     i.get()
+        # for block_id in range(len(mp_processe_all)):
+        #     if (block_id == int(0)):
+        #         self.dynspec = np.copy(mp_processe_all[block_id])
+        #     else:
+        #         self.dynspec = np.append(self.dynspec, mp_processe_all[block_id], axis=2)
+
         self.dynspec = np.flip(self.dynspec, axis=1)
         # print(np.sum(self.nof_subblocks))
         # print(np.shape(self.dynspec))
@@ -419,21 +438,21 @@ class Raw:
             Yconj = self.wav_Y.real**2 + self.wav_Y.imag**2
             data_plot = Xconj - Yconj
         elif (pol == "U"):
-            XconjY = (self.wav_X.real - self.wav_X.imag) * self.wav_Y
+            XconjY = self.wav_X.conj() * self.wav_Y
             data_plot = 2 * XconjY.real
         elif (pol == "L"):
             Xconj = self.wav_X.real**2 + self.wav_X.imag**2
             Yconj = self.wav_Y.real**2 + self.wav_Y.imag**2
-            XconjY = (self.wav_X.real - self.wav_X.imag) * self.wav_Y
+            XconjY = self.wav_X.conj() * self.wav_Y
             data_plot = (Xconj - Yconj)**2 + (2 * XconjY.real)**2
         elif (pol == "V"):
-            XconjY = (self.wav_X.real - self.wav_X.imag) * self.wav_Y
+            XconjY = self.wav_X.conj() * self.wav_Y
             data_plot = 2 * XconjY.imag
         elif (pol == "XX"):
-            XconjX = (self.wav_X.real - self.wav_X.imag) * self.wav_X
+            XconjX = self.wav_X.conj() * self.wav_X
             data_plot = XconjX
         elif (pol == "YY"):
-            YconjY = (self.wav_Y.real - self.wav_Y.imag) * self.wav_Y
+            YconjY = self.wav_Y.conj() * self.wav_Y
             data_plot = YconjY
         else:  # "I"
             Xconj = self.wav_X.real**2 + self.wav_X.imag**2
@@ -518,3 +537,15 @@ class Raw:
         print("")
         for i in range(len(self.fourier_methode)):
             print("methode %d:  %s" % (i, self.fourier_methode[i]))
+
+
+class Thread (threading.Thread):
+    def __init__(self, func, args=((),), kwargs={}, name=None):
+        threading.Thread.__init__(self)  # init mother class
+        self.func2thread = func
+        self.args = args
+        self.kwargs = kwargs
+        self.name = name
+
+    def run(self):
+        self.func2thread(*self.args, **self.kwargs)
