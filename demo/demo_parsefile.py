@@ -30,8 +30,8 @@
 
 import argparse
 
-import dynspec_utils
-import wav_utils
+from NenuRaw import dynspec_utils
+from NenuRaw import wav_utils
 
 
 parser = argparse.ArgumentParser(description="This code will plot GUPPI raw files")
