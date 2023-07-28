@@ -240,6 +240,7 @@ class Raw:
             self.ds = 1
         if(self.ds > self.nfft):
             self.ds = self.nfft
+        print(self.nschan)
         print(self.nschan / self.nof_polcpx / self.fftlen, self.ds)
         if(self.nschan / self.nof_polcpx / self.fftlen % self.ds != 0):
             while (self.nschan / self.nof_polcpx / self.fftlen % self.ds != 0):
