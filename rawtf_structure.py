@@ -38,7 +38,7 @@ class Rawtf:
         self.dt_block = np.dtype([('eisb', 'uint64'),
                                   ('tsb', 'uint64'),
                                   ('bsnb', 'uint64'),
-                                  ('data', 'int8', (int(blocksize * nbit / 8),)),
+                                  ('data', bit_mode, (int(blocksize * nbit / 8),)),
                                   ])
 
         if self.verbose:
