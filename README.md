@@ -6,21 +6,23 @@ visualiser les données, ainsi que pour effectuer des opérations de traitement 
 
 Les fichiers de la bibliothèque NenuRaw sont organisés en plusieurs classes, chacune ayant une fonction spécifique. Voici une description des fichiers et des classes les plus importants :
 
-* raw_utils.py : Ce fichier contient la classe Raw qui est la classe principale de la bibliothèque. Elle est utilisée pour lire et traiter les fichiers de données brutes. Elle contient des méthodes pour extraire les informations des en-têtes des fichiers, pour effectuer des opérations de traitement sur les données, et pour générer des visualisations.
-* main.py : Ce fichier est un exemple d'utilisation de la bibliothèque NenuRaw. Il montre comment créer une instance de la classe Raw et comment utiliser ses méthodes pour lire et traiter les fichiers de données brutes.
+* raw_utils.py : Ce fichier contient la classe **Raw** qui est la classe principale de la bibliothèque. Elle est utilisée pour lire et traiter les fichiers de données brutes. Elle contient des méthodes pour extraire les informations des en-têtes des fichiers, pour effectuer des opérations de traitement sur les données, et pour générer des visualisations.
+* main.py : Ce fichier est un exemple d'utilisation de la bibliothèque NenuRaw. Il montre comment créer une instance de la classe **Raw** et comment utiliser ses méthodes pour lire et traiter les fichiers de données brutes.
 * wav_utils.py : Ce fichier contient la classe Wav qui est utilisée pour effectuer des opérations de traitement spécifiques sur les données brutes, telles que la démodulation cohérente et le nettoyage des fréquences.
-* dynspec_utils.py : Ce fichier contient la classe Dynspec qui hérite de la classe Raw et ajoute des fonctionnalités spécifiques pour l'analyse et la visualisation des données spectroscopiques.
+* dynspec_utils.py : Ce fichier contient la classe **Dynspec** qui hérite de la classe **Raw** et ajoute des fonctionnalités spécifiques pour l'analyse et la visualisation des données spectroscopiques.
 * rawtf_structure.py : Ce fichier contient la classe Rawtf qui est utilisée pour lire et traiter les fichiers de données brutes au format RAWTF.
+* luppi_structure.py : Ce fichier contient la classe LUPPI qui est utilisée pour lire et traiter les fichiers de données brutes au format GUPPI.
+* waveolaf_structure.py : Ce fichier contient la classe WaveOlaf qui est utilisée pour lire et traiter les fichiers de données brutes issue du flux des données haut debit du style LOFAR.
 
 Ces fichiers et classes constituent les principaux composants de la bibliothèque NenuRaw et permettent de lire, traiter et analyser les données brutes provenant d'observations radioastronomiques.
 
 Classe Raw
 ----------
 
-La classe Raw dans le fichier raw_utils.py est utilisée pour lire et manipuler des fichiers de données brutes provenant de l'observatoire de Nançay. Voici une description des principales méthodes de la
-classe Raw :
+La classe **Raw** dans le fichier raw_utils.py est utilisée pour lire et manipuler des fichiers de données brutes provenant de l'observatoire de Nançay. Voici une description des principales méthodes de la
+classe **Raw** :
 
-* __init__(self, obs_files, freq_start=0, freq_end=999, start=None, end=None, duration=None, block_start=0, block_end=1, verbose=False): Le constructeur de la classe Raw initialise les attributs de l'objet en fonction des paramètres fournis. Il prend en entrée une liste de fichiers d'observation, ainsi que des paramètres optionnels tels que la fréquence de début et de fin, le temps de début et de fin, la durée, le bloc de début et de fin, et un indicateur de verbosité.
+* __init__(self, obs_files, freq_start=0, freq_end=999, start=None, end=None, duration=None, block_start=0, block_end=1, verbose=False): Le constructeur de la classe **Raw** initialise les attributs de l'objet en fonction des paramètres fournis. Il prend en entrée une liste de fichiers d'observation, ainsi que des paramètres optionnels tels que la fréquence de début et de fin, le temps de début et de fin, la durée, le bloc de début et de fin, et un indicateur de verbosité.
 * __try_isot(self, time_string): Cette méthode tente de convertir une chaîne de caractères représentant une date/heure au format ISO en un temps en secondes depuis le début de l'observation. Elle renvoie le temps en secondes si la conversion réussit, sinon elle renvoie False.
 * __try_iso(self, time_string): Cette méthode tente de convertir une chaîne de caractères représentant une date/heure au format ISO ou ISO étendu en un temps en secondes depuis le début de l'observation. Elle renvoie le temps en secondes si la conversion réussit, sinon elle renvoie False.
 * __nfft(self): Cette méthode calcule le nombre de transformées de Fourier à effectuer en fonction du nombre de canaux, de la longueur de la FFT et du nombre de polarisations.
@@ -37,10 +39,10 @@ Ces méthodes permettent de lire et de manipuler les données brutes, d'effectue
 Classe Dynspec
 --------------
 
-La classe Dynspec dans le fichier dynspec_utils.py est une classe dérivée de la classe Raw de la bibliothèque NenuRaw. Elle ajoute des fonctionnalités spécifiques pour l'analyse et la visualisation des
-données spectroscopiques. Voici une description des méthodes associées à la classe Dynspec :
+La classe **Dynspec** dans le fichier dynspec_utils.py est une classe dérivée de la classe **Raw** de la bibliothèque NenuRaw. Elle ajoute des fonctionnalités spécifiques pour l'analyse et la visualisation des
+données spectroscopiques. Voici une description des méthodes associées à la classe **Dynspec** :
 
-* __init__(self, *args, **kwargs): Le constructeur de la classe Dynspec qui appelle le constructeur de la classe Raw et initialise les paramètres spécifiques à la classe Dynspec.
+* __init__(self, *args, **kwargs): Le constructeur de la classe **Dynspec** qui appelle le constructeur de la classe **Raw** et initialise les paramètres spécifiques à la classe Dynspec.
 * dedisperse(self, dm=None): Une méthode qui effectue la dédispersion des données en appliquant un décalage temporel en fonction de la dispersion du signal. Elle prend en paramètre optionnel dm qui représente la dispersion en pc cm^-3.
 * clean(self, threshold=3): Une méthode qui effectue le nettoyage des données en supprimant les valeurs aberrantes ou les pics indésirables. Elle prend en paramètre optionnel threshold qui représente le seuil de nettoyage.
 * rm_dm0(self): Une méthode qui supprime la dispersion à zéro en ajustant les valeurs temporelles des données.
