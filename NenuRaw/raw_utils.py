@@ -10,14 +10,14 @@ from astropy.time import Time
 import matplotlib
 import matplotlib.pyplot as plt
 
-from NenuRaw.luppi_structure import LUPPI
-from NenuRaw.rawtf_structure import Rawtf
-from NenuRaw.waveolaf_structure import WaveOlaf
+from .luppi_structure import LUPPI
+from .rawtf_structure import Rawtf
+from .waveolaf_structure import WaveOlaf
 
 # from multiprocessing import Pool, TimeoutError
 import threading
 
-from NenuRaw.wav_utils import Wav
+from .wav_utils import Wav
 
 # from pympler import summary
 # from pympler import muppy

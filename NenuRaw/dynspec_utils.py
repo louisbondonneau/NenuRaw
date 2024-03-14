@@ -9,7 +9,7 @@ from astropy.time import Time
 import matplotlib
 import matplotlib.pyplot as plt
 
-from NenuRaw.raw_utils import Raw
+from .raw_utils import Raw
 
 #from pympler import summary
 #from pympler import muppy
