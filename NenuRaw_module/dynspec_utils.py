@@ -80,7 +80,7 @@ class Dynspec(Raw):
                     ichan + 1) * self.chan_factor, ifft] - (self.pfb - 1) * median
         # self.dynspec = np.reshape(self.dynspec, (self.nchan_file*self.chan_factor, int((np.sum(self.nof_blocks)-self.block_start)*self.nfft/self.ds)))
 
-    def plot_dynspec(self):
+    def plot_dynspec(self, log10=False):
         if ((self.time_end - self.time_start) > 60):
             time_ratio = 1 / 60.
             label_start = (self.time_start + self.time_off) * time_ratio
@@ -121,7 +121,11 @@ class Dynspec(Raw):
         ax0.axes.get_xaxis().set_visible(False)
         ax0.set_title(os.path.basename(self.names[0]))
         ax1 = plt.subplot2grid((4, 1), (1, 0), colspan=1, rowspan=3, sharex=ax0)
-        ax1.imshow(np.flipud(self.dynspec), interpolation='none', cmap='afmhot', aspect='auto', extent=[
+        if log10:
+            data_show = np.log10(np.flipud(self.dynspec))
+        else:
+            data_show = np.flipud(self.dynspec)
+        ax1.imshow(data_show, interpolation='none', cmap='afmhot', aspect='auto', extent=[
                    label_start, label_end, self.minfreq - self.chan_bw / 2, self.maxfreq + self.chan_bw / 2])
         ax1.set_ylabel('Frequency (MHz)')
 
