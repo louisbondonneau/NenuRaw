@@ -30,8 +30,8 @@
 
 import argparse
 
-from NenuRaw import dynspec_utils
-from NenuRaw import wav_utils
+from NenuRaw import Dynspec
+from NenuRaw import Wav
 
 
 parser = argparse.ArgumentParser(description="This code will plot GUPPI raw files")
@@ -45,7 +45,7 @@ args = parser.parse_args()
 if __name__ == "__main__":
     files = args.INPUT_ARCHIVE
 
-    my_spectra = dynspec_utils.Dynspec(files,
+    my_spectra = Dynspec(files,
                                        verbose=True,
                                        freq_start=99,
                                        freq_end=0,
@@ -61,7 +61,7 @@ if __name__ == "__main__":
                                        # block_end=1,
                                        )
 
-    my_wav_obj = wav_utils.Wav()
+    my_wav_obj = Wav()
 
     # my_spectra.dm = 12.44
     # my_spectra.new_fourier_methode(my_wav_obj.wav_cleaning_freq)
