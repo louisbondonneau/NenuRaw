@@ -16,5 +16,5 @@ setup(
         'astropy',
 		'matplotlib',
     ],
-    scripts=["main.py"],
+    scripts=["NenuRaw.py"],
 )
