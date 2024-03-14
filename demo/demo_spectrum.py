@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from NenuRaw import Dynspec
+from NenuRaw_module import Dynspec
 
 
 

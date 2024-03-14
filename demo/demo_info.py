@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from NenuRaw import Dynspec
+from NenuRaw_module import Dynspec
 
 if __name__ == "__main__":
     # wavfile (GUPPI or RAWTF format)

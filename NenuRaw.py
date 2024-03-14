@@ -3,8 +3,8 @@
 import argparse
 import matplotlib.pyplot as plt
 import numpy as np
-from NenuRaw import Dynspec
-from NenuRaw import Wav
+from NenuRaw_module import Dynspec
+from NenuRaw_module import Wav
 
 if __name__ == "__main__":
     # Setup argparse

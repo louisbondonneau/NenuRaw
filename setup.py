@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='NenuRaw',
+    name='NenuRaw_module',
     version='0.01',
     python_requires='>=3.8',
     description='this package can handle RAW observation files of the radio telescopes of Nançay',
