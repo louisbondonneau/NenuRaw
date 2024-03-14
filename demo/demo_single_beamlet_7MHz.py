@@ -5,7 +5,7 @@ from NenuRaw_module import Wav
 
 if __name__ == "__main__":
     # wavfile (GUPPI or RAWTF format)
-    files = ['/databf2/nenufar-tf/ES00/2021/12/20211210_141600_20211210_142300_B1508+55_TRANSIT/B1508+55_TRANSIT_20211210_141636_0.raw']
+    files = ['/databf/nenufar-tf/ES00/2021/12/20211210_141600_20211210_142300_B1508+55_TRANSIT/B1508+55_TRANSIT_20211210_141636_0.raw']
 
     # initialisation of my_spectra object containing the methodes
     my_spectra = Dynspec(files,
