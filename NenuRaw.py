@@ -15,6 +15,7 @@ if __name__ == "__main__":
     parser.add_argument('--fftlen', type=int, default=131072, help="FFT length for Fourier computation")
     parser.add_argument('--ds_ms', type=float, default=100.0, help="Time integration in milliseconds")
     parser.add_argument('--dm', type=float, default=0.0, help="Time integration in milliseconds")
+    parser.add_argument('--pol', type=str, default='I', help="polarization in 'I' 'Q' 'U' 'L' 'V' 'XX' 'YY'")
     parser.add_argument('--freq_start', type=float, default=43.5, help="Start frequency in MHz")
     parser.add_argument('--freq_end', type=float, default=46.5, help="End frequency in MHz")
     parser.add_argument('--clean', action='store_true', help="End frequency in MHz")
@@ -37,12 +38,12 @@ if __name__ == "__main__":
     # Process each file in the list
     for index, file in enumerate(args.files):
         my_spectra = Dynspec([file],
-                                           verbose=True,
-                                           freq_start=args.freq_start,
-                                           freq_end=args.freq_end,
-                                           start=args.start,
-                                           duration=args.duration
-                                           )
+                             verbose=True,
+                             freq_start=args.freq_start,
+                             freq_end=args.freq_end,
+                             start=args.start,
+                             duration=args.duration,
+                             )
         
         my_spectra.dm = args.dm
         if (args.dm != 0) or (args.clean_wave_freq) or (args.clean_wave_time):
@@ -54,8 +55,10 @@ if __name__ == "__main__":
             if (args.clean_wave_time):
                 my_spectra.new_fourier_methode(my_wav_obj.wav_cleaning_time)
 
-        my_spectra.fourier_computation(
-            fftlen=args.fftlen, ds_ms=args.ds_ms, pol="I")
+        my_spectra.fourier_computation(fftlen=args.fftlen,
+                                       ds_ms=args.ds_ms,
+                                       pol=args.pol
+                                       )
         
         if (args.clean):
             my_spectra.clean(threshold=30)
