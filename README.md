@@ -2,7 +2,7 @@ NenuRaw
 =======
 
 NenuRaw est une bibliothèque logicielle qui permet de lire et de traiter des fichiers de données brutes provenant d'observations radioastronomiques. Elle fournit des fonctionnalités pour analyser et
-visualiser les données, ainsi que pour effectuer des opérations de traitement telles que la détection de signaux, la démodulation, la déconvolution, etc.
+visualiser les données, ainsi que pour effectuer des opérations de traitement telles que le nettoyage des données dans le domaine de fourier, la dedispertion cohérente, l'integration temporel et frequenciel, etc.
 
 Les fichiers de la bibliothèque NenuRaw sont organisés en plusieurs classes, chacune ayant une fonction spécifique. Voici une description des fichiers et des classes les plus importants :
 
